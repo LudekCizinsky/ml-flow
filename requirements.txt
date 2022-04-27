@@ -1,0 +1,7 @@
+pandas==1.4.2
+scikit-learn==1.0.2
+mlflow==1.25.1
+azureml==0.2.7
+azureml-core==1.41.0
+azureml-mlflow==1.41.0
+argparse==1.4.0
