@@ -16,15 +16,13 @@ def main():
 
   # Setup the experiment
   experiment = Experiment(
-      name='Orkney - dev',
-      folds=[2],
+      name='Orkney - dev2',
+      folds=[2, 4, 6, 8 , 10],
       df=df
   )
 
   # Run the experiment
   experiment.run()
-  
-  # Select the best model
 
 if __name__ == '__main__':
   main()

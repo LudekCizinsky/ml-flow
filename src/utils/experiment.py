@@ -39,7 +39,11 @@ class Experiment:
     self._preprocess_info = None
     self._figures = None
     self._df_trf = None
-    self._scoring = ['r2', 'max_error', 'neg_mean_absolute_error', 'neg_mean_squared_error']
+    self._scoring = [
+        'r2',
+        'neg_mean_absolute_error',
+        'neg_mean_squared_error'
+    ]
     self._setup()
   
   def run(self):
@@ -83,7 +87,7 @@ class Experiment:
             "mlpregressor__hidden_layer_sizes": [[25, 30], [10, 15]],
             "mlpregressor__activation": ['relu', 'tanh'],
             "mlpregressor__learning_rate_init": [.01, .001, .0001, 0.00001],
-            "mlpregressor__max_iter": [400, 600]
+            "mlpregressor__max_iter": [800, 1000]
         }
 
         grid = GridSearchCV(

@@ -5,3 +5,4 @@ azureml==0.2.7
 azureml-core==1.41.0
 azureml-mlflow==1.41.0
 argparse==1.4.0
+seaborn==0.11.2
