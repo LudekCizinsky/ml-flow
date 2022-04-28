@@ -49,7 +49,7 @@ for the modelling part:
 The `mlflow` framework is designed around the concepts of `experiments` and `runs`. Following the documentation, experiment groups `runs` with a similar objective. Therefore, I decided to have a single experiment - `Orkney - power production prediction`. Further, I used `sklearn`'s grid search to find optimal hyper-parameters for the given model. Yet, grid search itself has an hyperparameter which is how many splits should be used during cross-validation. For this reason, each of my runs represents a run of grid search with given number of splits for cross validation.
 
 ### Metrics choice
-I decided to track several metrics: `r-squared` (R2), `mean absolute error` (MAE), `mean squared error` (MSE). While MAE and MSE take into account residuals, R2 in addition puts this information in the context of variance of the target variable. Therefore, I decided to use R2 as the metric to use when deciding which model is the best one. In addition, it is easy to interpret.
+I decided to track several metrics: `r-squared` (R2), `mean absolute error` (MAE), `mean squared error` (MSE), `maximum error` (ME). While MAE and MSE take into account residuals, R2 in addition puts this information in the context of variance of the target variable. Therefore, I decided to use R2 as the metric to use when deciding which model is the best one. In addition, it is easy to interpret.
 
 ### Results
 I would like to start with a figure which summarizes my results:
@@ -58,6 +58,43 @@ I would like to start with a figure which summarizes my results:
 
 As can be seen from the figure, on average, the best performing model based on
 the R2 score is `FFNN`. For all possible number of splits, the cross validated R2 score for `FFNN` has been always within `0.6` and `0.67`. This simply means that independently of the size of input training data, `FFNN` has been able to learn the patterns in the data well enough such that its performance was relatively stable. This, however, can not be said about the linear regression model whose performance varied a lot in relation to the chosen number of splits. In addition, `LR` is clearly the worst performing model. Given these results, I decided to deploy `FFNN` as the final model.
+
+Looking more closely on the chosen model, following hyper-parameters have been
+chosen:
+
+```
+activation : relu
+hidden_layer_sizes : [10, 15]
+learning_rate_init : 0.01
+max_iter : 1000
+selectkbest__k : 1
+```
+
+Perhaps the most interesting to observe is that the model decided to use only
+one feature. In the context of `FFNN` this might not be surprising since it can
+easily overfit, therefore, it was more beneficial to use less features in order
+to achieve better generalization. The same can be confirmed by the number of
+neurons in each hidden layer which is in fact the least complex combination. One
+further thing to consider is the number of epochs that it took to train this
+model which is quite large. Here I assume I am not restricted by the
+computational power, but if the model would have to be re-trained on for example
+an edge device, then a model like `LR` regression might be more suitable.
+
+Finally, examining the performance of this best model on other metrics:
+
+```
+Cross validated ME: 20.92249850330339
+Cross validated MAE: 4.675845283832494
+Cross validated MSE: 36.60973648174768
+```
+
+If it is critical for our use case not to make too big mistakes, then it might
+be important to take into consideration `ME` instead of `R2`. In this particular
+case, on average, the best model's worst prediction was off by `20.92`. To avoid
+big mistakes, `MSE` might be also a good option since from its definition it
+punishes the model more by making bigger mistakes compare to the `MAE`. Looking
+at the actual values, I would say that these are solid results relative to the
+task difficulty as well as complexity of the model.
 
 ## Reproducibility
 ### MLflow
