@@ -173,5 +173,16 @@ that we can expect new features as well as fixes of the existing problems.
 In the recent years, there has been a boom in `MLops` tools. One of the most
 established tools out there is for example `Apache airflow` which offers many
 features, but it is more difficult to learn. Compare to `MLflow`, it might be
-more suitable to be used in the context of large organizations and projects. 
+more suitable to be used in the context of large organizations and projects.
+There are also many other tools such as `Kubeflow` or `Luigi` to name a few,
+these tools, however, are more general compare to `MLflow` whose main mission is
+to enable easy model tracking and deployment. [1] To conclude, the choice of
+orchestration tool is a complex task in itself and depends on variables such as
+size of the team, size of the project, existing tools as well as personal
+preferences in terms of how things should be done. Therefore, it is important to
+do preliminary research before choosing the final tool.
+
+## References
+
+- [1] [Airflow vs. Luigi vs. Argo vs. MLFlow vs. KubeFlow](https://www.datarevenue.com/en-blog/airflow-vs-luigi-vs-argo-vs-mlflow-vs-kubeflow#:~:text=Airflow%20is%20a%20set%20of,to%20Amazon%20SageMaker%20or%20AzureML)
 
